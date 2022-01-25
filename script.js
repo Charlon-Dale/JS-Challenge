@@ -28,3 +28,17 @@ function generateCat() {
 }
 
 
+function rpsgame(yourChoice) {
+    console.log(yourChoice);
+    console.log(yourChoice.src);
+    var humanChoice, botChoice;
+    //humanChoice = yourChoice.id;
+    //botChoice
+    //results = decideWinner(humanChoice, botChoice);
+    //message = finalMessage(results); // returns a message
+    rpsFrontend(yourChoice.id, botChoice, message);
+
+
+}  
+
+
