@@ -1,3 +1,4 @@
+//for Challenge 1
 function  yourAge() {
     var birthYear = prompt('What is your birthyear?');
     var Age = (2022 - birthYear) * 365; //formula 
@@ -19,7 +20,7 @@ function reset() {
     document.getElementById('Age').remove();
 }
 
-
+//for Challenge 2
 function generateCat() {
     var image = document.createElement('img');
     var div = document.getElementById('flex-cat-gen');
@@ -27,7 +28,7 @@ function generateCat() {
     div.appendChild(image);
 }
 
-
+//for Challenge 3
 function rpsgame(yourChoice) {
     console.log(yourChoice);
     console.log(yourChoice.src);
