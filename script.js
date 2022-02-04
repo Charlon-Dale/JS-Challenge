@@ -159,3 +159,28 @@ function randomColors() {
     }
 }
 
+//challenge 5: Blackjack
+let blackjackGame = {
+    'you': {'scoreSpan': '#your-blackjack-result', 'div': '#your-box', 'score': 0},
+    
+    'dealer': {'scoreSpan': '#dealer-blackjack-result', 'div': '#dealer-box', 'score': 0},
+};
+
+const YOU = blackjackGame['you']
+const DEALER = blackjackGame['dealer']
+
+const clickSound = new Audio('blackjack_assets/sounds/mixkit-air-in-a-hit-2161.wav');
+
+document.querySelector('#blackjack-hit-button').addEventListener('click', blackjackHit);
+
+function blackjackHit() {
+    showCard(YOU);
+}
+
+function showCard(activePlayer) {
+    let cardImage = document.createElement ('img');
+    cardImage.src = 'blackjack_assets/images/Q.png';
+    document.querySelector(activePlayer['div']).appendChild(cardImage);
+    clickSound.play();
+}
+
