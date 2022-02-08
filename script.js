@@ -174,6 +174,9 @@ const clickSound = new Audio('blackjack_assets/sounds/mixkit-air-in-a-hit-2161.w
 
 document.querySelector('#blackjack-hit-button').addEventListener('click', blackjackHit);
 
+document.querySelector('#blackjack-stand-button').addEventListener('click', dealerLogic);
+
+
 document.querySelector('#blackjack-deal-button').addEventListener('click', blackjackDeal);
 
 function blackjackHit() {
@@ -200,6 +203,7 @@ function showCard(card, activePlayer) {
 }
 
 function blackjackDeal() {
+    computeWinner();
     let yourImages = document.querySelector('#your-box').querySelectorAll('img');
     let dealerImages = document.querySelector('#dealer-box').querySelectorAll('img');
     
@@ -217,6 +221,8 @@ function blackjackDeal() {
     document.querySelector('#your-blackjack-result').textContent = 0;
     document.querySelector('#dealer-blackjack-result').textContent = 0;
 
+    document.querySelector('#your-blackjack-result').style.color = '#ffffff';
+    document.querySelector('#dealer-blackjack-result').style.color = '#ffffff';
 }
 
 function updateScore(card, activePlayer) {
@@ -240,4 +246,48 @@ function showScore(activePlayer) {
     } else {
     document.querySelector(activePlayer['scoreSpan']).textContent = activePlayer['score'];
     }
+}
+
+function dealerLogic() {
+    let card = randomCard();
+    showCard(card, DEALER);
+    updateScore(card, DEALER);
+    showScore(DEALER);
+    computeWinner();
+}
+
+//compute winner and return who just won
+
+function computeWinner() {
+    let winner;
+
+    if (YOU['score'] <=21) {
+        //condition: you have higher score than the dealer / Dealer busts
+        if (YOU['score'] > DEALER['score'] || (DEALER['score'] > 21)) {
+            console.log('You won!');
+            winner = YOU;
+
+        } else if (YOU['score'] < DEALER['score']) {
+            console.log('You lost!');
+            winner = DEALER;
+
+        } else if (YOU['score'] === DEALER['score']) {
+            console.log('You draw!');
+        }
+
+       // condition: when user busts but dealer not 
+    } else if (YOU['score'] > 21 && DEALER['score']<=21) {
+        console.log('You lost!');
+        winner = DEALER;
+
+
+       // condition: when both busts
+    } else if (YOU['score'] > 21 && DEALER['score'] > 21) {
+        console.log('You draw!');
+    }
+
+
+    console.log('Winner is', winner);
+    return winner;
+
 }
