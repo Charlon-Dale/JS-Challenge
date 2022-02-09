@@ -171,6 +171,8 @@ const YOU = blackjackGame['you']
 const DEALER = blackjackGame['dealer']
 
 const clickSound = new Audio('blackjack_assets/sounds/mixkit-air-in-a-hit-2161.wav');
+const winSound = new Audio('blackjack_assets/sounds/7YZKWPV-cash-register.wav');
+const lossSound = new Audio('blackjack_assets/sounds/94KEVMY-aww-sympathy.wav');
 
 document.querySelector('#blackjack-hit-button').addEventListener('click', blackjackHit);
 
@@ -203,7 +205,9 @@ function showCard(card, activePlayer) {
 }
 
 function blackjackDeal() {
-    computeWinner();
+    let winner = computeWinner();
+    showResult(winner);
+
     let yourImages = document.querySelector('#your-box').querySelectorAll('img');
     let dealerImages = document.querySelector('#dealer-box').querySelectorAll('img');
     
@@ -253,7 +257,7 @@ function dealerLogic() {
     showCard(card, DEALER);
     updateScore(card, DEALER);
     showScore(DEALER);
-    computeWinner();
+    //showResult((computeWinner));
 }
 
 //compute winner and return who just won
@@ -289,5 +293,28 @@ function computeWinner() {
 
     console.log('Winner is', winner);
     return winner;
+
+}
+
+function showResult(winner) {
+    let message, messageColor;
+
+    if (winner === YOU) {
+        message  = "You won!";
+        messageColor = 'green';
+        winSound.play();
+    
+    } else if (winner === DEALER) {
+        message = 'You lost!';
+        messageColor = 'red';
+        lossSound.play();
+    
+    } else {
+        message = 'You drew!';
+        messageColor = 'black';
+    }
+
+    document.querySelector('#blackjack-result').textContent = message;
+    document.querySelector('#blackjack-result').style.color = messageColor;
 
 }
